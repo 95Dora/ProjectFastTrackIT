@@ -3,11 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-
 public class LoginPage extends BasePage{
     public LoginPage(WebDriver driver) {super(driver);}
 
-   By UsernameField = By.id("user-name");
+    By UsernameField = By.id("user-name");
     public void click_On_Username_Field() {
         driver.findElement(UsernameField).click();
     }
@@ -35,8 +34,25 @@ public class LoginPage extends BasePage{
     }
 
     By ErrorMessageContainer = By.xpath("/html/body/div/div/div[2]/div[1]/div/div/form/div[3]/h3");
-    public String checkErrorMessage() {
-        String errorMessage = driver.findElement(ErrorMessageContainer).getText();
-        return errorMessage;
+    public String check_Error_Message_Text() {
+        return driver.findElement(ErrorMessageContainer).getText();
     }
+
+    By ErrorMessageXButton = By.cssSelector("#login_button_container > div > form > div.error-message-container.error > h3 > button > svg");
+    public void click_On_Error_Message_X_Button() {
+        driver.findElement(ErrorMessageXButton).click();
+    }
+
+    public boolean check_Error_Message() {
+        try {
+            boolean isDisplayed = driver.findElement(ErrorMessageContainer).isDisplayed();
+            return isDisplayed;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+
+
 }
