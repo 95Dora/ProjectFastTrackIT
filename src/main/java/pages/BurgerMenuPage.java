@@ -7,13 +7,13 @@ public class BurgerMenuPage extends BasePage{
     private LoginPage loginPage;
 
     public BurgerMenuPage(WebDriver driver) {
-        super(driver);
+         super(driver);
         loginPage = new LoginPage(driver);
     }
 
     public void loggedInUser() {
         loginPage.click_On_Username_Field();
-        loginPage.enter_Correct_Username_In_The_Field();
+        loginPage.enter_Standard_User_In_The_Field();
         loginPage.click_On_Password_Field();
         loginPage.enter_Correct_Password_In_The_Field();
         loginPage.click_On_Login_Button();
@@ -61,8 +61,8 @@ public class BurgerMenuPage extends BasePage{
     By ShoppingCartBadge = By.xpath("/html/body/div/div/div/div[1]/div[1]/div[3]/a/span");
     public boolean shopping_Cart_Badge_is_Displayed() {
         try {
-            boolean isDisplayed = driver.findElement(ShoppingCartBadge).isDisplayed();
-            return isDisplayed;
+            boolean cartBadgeIsDisplayed = driver.findElement(ShoppingCartBadge).isDisplayed();
+            return cartBadgeIsDisplayed;
         } catch (Exception e) {
             return false;
         }
@@ -72,7 +72,4 @@ public class BurgerMenuPage extends BasePage{
     public void click_On_Item_1() {
         driver.findElement(Item1).click();
     }
-
 }
-
-

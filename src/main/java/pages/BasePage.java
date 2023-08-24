@@ -4,7 +4,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import java.nio.file.Paths;
@@ -23,7 +22,7 @@ public class BasePage {
     public void setUp() {
         String driverPath = Paths.get("src/main", "resources/", "chromedriver.exe").toString();
         System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true"); //suppress unnecessary console warnings when executing
-        System.setProperty("webdriver.chrome.driver", driverPath);
+        System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get(baseURL);

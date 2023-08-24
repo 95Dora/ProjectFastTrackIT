@@ -17,9 +17,9 @@ public class BurgerMenuTestCases extends BasePage {
     }
 
     @Test
-    public void check_Burger_Menu() {
+    public void check_Burger_Menu() throws InterruptedException {
         burgerMenuPage.click_On_Burger_Menu_Icon();
-        burgerMenuPage.Burger_Menu_Is_Displayed();
+        Thread.sleep(500);
 
         Assert.assertTrue(burgerMenuPage.Burger_Menu_Is_Displayed());
     }
@@ -27,9 +27,9 @@ public class BurgerMenuTestCases extends BasePage {
     @Test
     public void close_Burger_Menu() throws InterruptedException {
         burgerMenuPage.click_On_Burger_Menu_Icon();
-        Thread.sleep(1000);
+        Thread.sleep(500);
         burgerMenuPage.click_On_Burger_Menu_X_Button();
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
         Assert.assertFalse(burgerMenuPage.Burger_Menu_Is_Displayed());
     }
@@ -38,18 +38,19 @@ public class BurgerMenuTestCases extends BasePage {
     public void check_All_Items_sidebar_link() throws InterruptedException {
         burgerMenuPage.click_On_Item_1();
         burgerMenuPage.click_On_Burger_Menu_Icon();
-        Thread.sleep(1000);
+        Thread.sleep(500);
         burgerMenuPage.click_On_All_Items();
+        Thread.sleep(1000);
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
-
     }
 
     @Test
     public void check_About_sidebar_link() throws InterruptedException {
         burgerMenuPage.click_On_Burger_Menu_Icon();
-        Thread.sleep(1000);
+        Thread.sleep(500);
         burgerMenuPage.click_On_About();
+        Thread.sleep(1000);
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://saucelabs.com/");
     }
@@ -57,8 +58,9 @@ public class BurgerMenuTestCases extends BasePage {
     @Test
     public void check_Logout_sidebar_link() throws InterruptedException {
         burgerMenuPage.click_On_Burger_Menu_Icon();
-        Thread.sleep(1000);
+        Thread.sleep(500);
         burgerMenuPage.click_On_Logout();
+        Thread.sleep(1000);
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
     }
@@ -70,10 +72,9 @@ public class BurgerMenuTestCases extends BasePage {
       Assert.assertTrue(burgerMenuPage.shopping_Cart_Badge_is_Displayed());
 
       burgerMenuPage.click_On_Burger_Menu_Icon();
-      Thread.sleep(1000);
+      Thread.sleep(500);
       burgerMenuPage.click_On_Reset_App_State();
 
       Assert.assertFalse(burgerMenuPage.shopping_Cart_Badge_is_Displayed());
     }
-
 }

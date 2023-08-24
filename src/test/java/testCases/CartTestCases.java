@@ -1,7 +1,7 @@
 package testCases;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BasePage;
 import pages.CartPage;
@@ -10,10 +10,10 @@ public class CartTestCases extends BasePage {
 
     public CartPage cartPage;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         super.setUp();
-        cartPage = new CartPage(driver);
+        cartPage = new CartPage(driver); // int price1 = findElement
         cartPage.loggedInUser();
     }
 
@@ -64,11 +64,9 @@ public class CartTestCases extends BasePage {
         cartPage.click_On_Cart_Button();
         Thread.sleep(500);
         cartPage.homePage.click_On_First_Remove_Button();
-        Thread.sleep(500);
         cartPage.homePage.click_On_Second_Remove_Button();
-        Thread.sleep(500);
 
-       Assert.assertEquals(cartPage.get_Number_Of_Products_From_The_Cart(), 1);
+        Assert.assertEquals(cartPage.get_Number_Of_Products_From_The_Cart(), 1);
     }
 
     @Test
@@ -195,8 +193,42 @@ public class CartTestCases extends BasePage {
     }
 
     @Test
-    public void check_The_Sum_Of_The_Items_From_The_Cart() {
+    public void check_The_Sum_Of_The_First_Two_Items_Added_On_The_Cart_Without_Tax() {
+        cartPage.homePage.click_On_First_Add_To_Cart_Button();
+        cartPage.homePage.click_On_Second_Add_To_Cart_Button();
+        cartPage.click_On_Cart_Button();
+        cartPage.click_On_Checkout_Button();
+        cartPage.enter_First_Name();
+        cartPage.enter_Last_Name();
+        cartPage.enter_Postal_Code();
+        cartPage.click_On_Continue_Button();
 
+        float item1 = Float.parseFloat(cartPage.check_First_Item_Price());
+        float item2 = Float.parseFloat(cartPage.check_Second_Item_Price());
+        float sum = item1 + item2;
+        String totalPrice = String.valueOf(sum);
+
+        Assert.assertEquals(cartPage.check_Total_Price_Of_The_Items_Without_Tax(), totalPrice);
+    }
+
+    @Test
+    public void check_The_Sum_Of_The_First_Two_Items_Added_On_The_Cart_With_Tax() {
+        cartPage.homePage.click_On_First_Add_To_Cart_Button();
+        cartPage.homePage.click_On_Second_Add_To_Cart_Button();
+        cartPage.click_On_Cart_Button();
+        cartPage.click_On_Checkout_Button();
+        cartPage.enter_First_Name();
+        cartPage.enter_Last_Name();
+        cartPage.enter_Postal_Code();
+        cartPage.click_On_Continue_Button();
+
+        float item1 = Float.parseFloat(cartPage.check_First_Item_Price());
+        float item2 = Float.parseFloat(cartPage.check_Second_Item_Price());
+        float tax = Float.parseFloat(cartPage.check_Tax_Price());
+        float sum = item1 + item2 + tax;
+        String totalPrice = String.valueOf(sum);
+
+        Assert.assertEquals(cartPage.check_Total_Price_Of_The_Items_With_Tax(), totalPrice);
     }
 
     @Test
@@ -234,19 +266,19 @@ public class CartTestCases extends BasePage {
 
     @Test
     public void check_The_Back_Home_Button() throws InterruptedException {
-            cartPage.homePage.click_On_First_Add_To_Cart_Button();
-            cartPage.homePage.click_On_Second_Add_To_Cart_Button();
-            cartPage.click_On_Cart_Button();
-            cartPage.click_On_Checkout_Button();
-            cartPage.enter_First_Name();
-            cartPage.enter_Last_Name();
-            cartPage.enter_Postal_Code();
-            cartPage.click_On_Continue_Button();
-            cartPage.click_On_Finish_Button();
-            cartPage.click_On_Back_To_Home_Button();
-            Thread.sleep(500);
+        cartPage.homePage.click_On_First_Add_To_Cart_Button();
+        cartPage.homePage.click_On_Second_Add_To_Cart_Button();
+        cartPage.click_On_Cart_Button();
+        cartPage.click_On_Checkout_Button();
+        cartPage.enter_First_Name();
+        cartPage.enter_Last_Name();
+        cartPage.enter_Postal_Code();
+        cartPage.click_On_Continue_Button();
+        cartPage.click_On_Finish_Button();
+        cartPage.click_On_Back_To_Home_Button();
+        Thread.sleep(500);
 
-            Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
     }
 
     @Test
@@ -264,6 +296,4 @@ public class CartTestCases extends BasePage {
 
         Assert.assertFalse(cartPage.homePage.check_Shopping_Cart_Badge());
     }
-
-
-    }
+}

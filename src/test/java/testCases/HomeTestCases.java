@@ -1,7 +1,7 @@
 package testCases;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BasePage;
 import pages.HomePage;
@@ -9,7 +9,7 @@ import pages.HomePage;
 public class HomeTestCases extends BasePage {
     public HomePage homePage;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
@@ -26,27 +26,38 @@ public class HomeTestCases extends BasePage {
     @Test
     public void check_Sorting_Products_By_Name_From_Z_To_A() throws InterruptedException {
         homePage.click_On_Filter_Field();
-        Thread.sleep(1000);
         homePage.click_On_Name_Z_to_A();
         Thread.sleep(1000);
+
         Assert.assertTrue(homePage.sort_Products_By_Name_From_Z_To_A());
+    }
+
+    @Test
+    public void check_Sorting_Products_By_Name_From_A_To_Z() throws InterruptedException {
+        homePage.click_On_Filter_Field();
+        homePage.click_On_Name_Z_to_A();
+        Thread.sleep(1000);
+        homePage.click_On_Name_A_to_Z();
+        Thread.sleep(1000);
+
+        Assert.assertTrue(homePage.sort_Products_By_Name_From_A_To_Z());
     }
 
     @Test
     public void check_Sorting_Products_By_Price_From_Low_To_High() throws InterruptedException {
         homePage.click_On_Filter_Field();
-        Thread.sleep(1000);
         homePage.click_On_Price_Low_To_High();
         Thread.sleep(1000);
+
         Assert.assertTrue(homePage.sort_Products_By_Price_From_Low_To_High());
     }
 
     @Test
     public void check_Sorting_Products_By_Price_From_High_To_Low() throws InterruptedException {
         homePage.click_On_Filter_Field();
-        Thread.sleep(1000);
         homePage.click_On_Price_High_To_Low();
         Thread.sleep(1000);
+
         Assert.assertTrue(homePage.sort_Products_By_Price_From_High_To_Low());
     }
 
@@ -65,12 +76,13 @@ public class HomeTestCases extends BasePage {
     }
 
     @Test
-    public void check_First_Remove_Button() throws InterruptedException {
+    public void check_First_Remove_Button() {
         homePage.click_On_First_Add_To_Cart_Button();
+
         Assert.assertTrue(homePage.check_Shopping_Cart_Badge());
-        Thread.sleep(500);
 
         homePage.click_On_First_Remove_Button();
+
         Assert.assertFalse(homePage.check_Shopping_Cart_Badge());
     }
 
@@ -93,16 +105,10 @@ public class HomeTestCases extends BasePage {
     }
 
     @Test
-    public void check_The_Image_Of_Second_Product() throws InterruptedException {
+    public void check_The_ImageLink_Of_Second_Product() throws InterruptedException {
         homePage.click_On_Image_Of_Second_Product();
         Thread.sleep(1000);
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory-item.html?id=0");
-
     }
-
-
-    }
-
-
-
+}
